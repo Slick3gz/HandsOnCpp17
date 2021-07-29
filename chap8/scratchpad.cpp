@@ -3,7 +3,7 @@
 /*--------------------------------------------------------------------------*/
 
 /*######################## Active Snippet ##################################*/
-#define SNIPPET_16
+#define SNIPPET_18
 
 #define PRINTSNIPPET(x) std::cout << #x << " Result:\n--------------------\n"; 
 /*##########################################################################*/
@@ -124,6 +124,27 @@ std::ostream &operator<<(std::ostream &os, myclass &obj)
 #ifdef SNIPPET_16
 #include <iostream>
 #include <fstream>
+#endif
+
+#ifdef SNIPPET_17
+#include <iostream>
+#include <fstream>
+#endif
+
+#ifdef SNIPPET_18
+#include <iostream>
+#include <fstream>
+
+template<typename T, std::size_t N>
+void myread(std::fstream& file, T (&str)[N], std::size_t count)
+{
+	if (count >= N)
+	{
+		throw std::out_of_range("file.read out of bounds");
+	}
+
+	file.read(static_cast<char*>(str), count);	
+}
 #endif
 
 /*-------------------------------------------------------------------------*/
@@ -288,5 +309,26 @@ int main(void)
 		std::cout << c << '\n';
 	}
 #endif
+
+#ifdef SNIPPET_17
+	PRINTSNIPPET(SNIPPET_17)
+	if (auto file = std::fstream("test.txt"))
+	{
+		char buf[25] = {};
+		file.read(buf, 11);
+		std::cout << buf << '\n';
+	}
+#endif
+
+#ifdef SNIPPET_18
+	PRINTSNIPPET(SNIPPET_18)
+	if (auto file = std::fstream("test.txt"))
+	{
+		char buf[25] = {};
+		myread(file, buf, 11);
+		std::cout << buf << '\n';
+	}
+#endif
+
 
 }
