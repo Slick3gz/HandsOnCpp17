@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------*/
-#define SNIPPET_59
+#define SNIPPET_60
 /*--------------------------------------------------------------------------*/
 
 /*--------------------------------------------------------------------------*/
@@ -705,7 +705,77 @@ auto mmap_unique(Args&&... args)
 }
 #endif
 
+/****************************************************************************/
+/************************** Shared Memory ***********************************/
+/****************************************************************************/
 
+#ifdef SNIPPET_60
+#include <memory>
+#include <iostream>
+
+#include <fcntl.h>
+#include <unistd.h>
+
+#include <string.h>
+#include <sys/mman.h>
+
+constexpr auto PROT_RW = PROT_READ | PROT_WRITE;
+
+auto name = "/shm";
+
+class mmap_deleter
+{
+	std::size_t m_size;
+public:
+	mmap_deleter(std::size_t size) :
+		m_size{size}
+	{ }
+
+	void operator()(int *ptr) const
+	{
+		munmap(ptr, m_size);
+	}
+};
+
+template<typename T, typename... Args>
+auto mmap_unique_server(Args&&... args)
+{
+	if (int fd = shm_open(name, O_CREAT | O_RDWR, 0644); fd != -1)
+	{
+		ftruncate(fd, sizeof(T));
+
+		if (auto ptr = mmap(0, sizeof(T), PROT_RW, MAP_SHARED, fd, 0))
+		{
+			auto obj = new (ptr) T(args...);
+			auto del = mmap_deleter(sizeof(T));
+
+			return std::unique_ptr<T, mmap_deleter>(obj, del);
+		}
+	}
+
+	throw std::bad_alloc();
+}
+
+template<typename T>
+auto mmap_unique_client()
+{
+	if (int fd = shm_open(name, O_RDWR, 0644); fd != -1)
+	{
+		ftruncate(fd, sizeof(T));
+
+		if (auto ptr = mmap(0, sizeof(T), PROT_RW, MAP_SHARED, fd, 0))
+		{
+			auto obj = static_cast<T*>(ptr);
+			auto del = mmap_deleter(sizeof(T));
+
+			return std::unique_ptr<T, mmap_deleter>(obj, del);
+		}
+	}
+
+	throw std::bad_alloc();
+}
+
+#endif
 
 /****************************************************************************/
 /*--------------------------------------------------------------------------*/
@@ -1095,6 +1165,13 @@ main(void)
 #ifdef SNIPPET_59
 	auto ptr = mmap_unique<int>(42);
 	std::cout << *ptr << '\n';
+#endif
+
+#ifdef SNIPPET_60
+	auto ptr1 = mmap_unique_server<int>(42);
+	auto ptr2 = mmap_unique_client<int>();
+	std::cout << *ptr1 << '\n';
+	std::cout << *ptr2 << '\n';
 #endif
 	
 
