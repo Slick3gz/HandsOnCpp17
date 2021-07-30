@@ -3,7 +3,7 @@
 /*--------------------------------------------------------------------------*/
 
 /*######################## Active Snippet ##################################*/
-#define SNIPPET_25
+#define SNIPPET_39
 
 #define PRINTSNIPPET(x) std::cout << #x << " Result:\n--------------------\n"; 
 /*##########################################################################*/
@@ -119,7 +119,7 @@ std::ostream &operator<<(std::ostream &os, myclass &obj)
 }
 #endif
 
-/*######################## Reading Bytes ###################################*/
+/*######################## Reading #########################################*/
 
 #ifdef SNIPPET_16
 #include <iostream>
@@ -180,6 +180,120 @@ void myread(std::fstream& file, T (&str)[N], std::size_t count)
 #ifdef SNIPPET_25
 #include <iostream>
 #include <fstream>
+#endif
+
+/*######################## Writing #########################################*/
+
+#ifdef SNIPPET_26
+#include <iostream>
+#include <fstream>
+#endif
+
+#ifdef SNIPPET_27
+#include <iostream>
+#include <fstream>
+#endif
+
+#ifdef SNIPPET_28
+#include <iostream>
+#include <fstream>
+
+struct myclass
+{
+	std::string hello{"Hello"};
+	std::string world{"World"};
+};
+
+std::fstream &operator<<(std::fstream &os, const myclass &obj)
+{
+	os << obj.hello;
+	os << ' ';
+	os << obj.world;
+
+	return os;
+}
+
+#endif
+
+#ifdef SNIPPET_29
+#include <fstream>
+#include <iostream>
+#endif
+
+#ifdef SNIPPET_30
+#include <fstream>
+#include <iostream>
+#endif
+
+#ifdef SNIPPET_31
+#include <fstream>
+#include <iostream>
+#endif
+
+#ifdef SNIPPET_32
+#include <string.h>
+
+#include <fstream>
+#include <iostream>
+
+void
+mywrite(std::fstream &file, const char *str, std::size_t count)
+{
+	if (count > strlen(str))
+	{
+		throw std::out_of_range("file.write out of bounds");
+	}
+
+	file.write(str,count);
+}
+#endif
+
+#ifdef SNIPPET_33
+#include <string.h>
+
+#include <fstream>
+#include <iostream>
+
+void
+mywrite(std::fstream &file, const char *str, std::size_t count)
+{
+	if (count > strlen(str))
+	{
+		throw std::out_of_range("file.write out of bounds");
+	}
+
+	file.write(str,count);
+}
+#endif
+
+#ifdef SNIPPET_34
+#include <fstream>
+#include <iostream>
+#endif
+
+#ifdef SNIPPET_35
+#include <fstream>
+#include <iostream>
+#endif
+
+#ifdef SNIPPET_36
+#include <fstream>
+#include <iostream>
+#endif
+
+#ifdef SNIPPET_37
+#include <fstream>
+#include <iostream>
+#endif
+
+#ifdef SNIPPET_38
+#include <fstream>
+#include <iostream>
+#endif
+
+#ifdef SNIPPET_39
+#include <fstream>
+#include <iostream>
 #endif
 
 /*-------------------------------------------------------------------------*/
@@ -446,6 +560,177 @@ int main(void)
 		}
 	}
 #endif
+
+#ifdef SNIPPET_26
+	PRINTSNIPPET(SNIPPET_26)
+	if (auto file = std::fstream("test.txt"))
+	{
+
+		std::string hello{"Hello"}, world{"World"};
+		file << hello << " " << world <<'\n';
+	}
+#endif
+
+#ifdef SNIPPET_27
+	PRINTSNIPPET(SNIPPET_27)
+	if (auto file = std::fstream("test.txt"))
+	{
+		file << "The answer is: " << 42 << '\n';
+	}
+#endif
+
+#ifdef SNIPPET_28
+	PRINTSNIPPET(SNIPPET_28)
+	if (auto file = std::fstream("test.txt"))
+	{
+		file << myclass{} << '\n';
+	}
+#endif
+
+#ifdef SNIPPET_29
+	PRINTSNIPPET(SNIPPET_29)
+	if (auto file = std::fstream("test.txt"))
+	{
+		file.put('H');
+		file.put('\n');
+	}
+#endif
+	
+#ifdef SNIPPET_30
+	PRINTSNIPPET(SNIPPET_30)
+	if (auto file = std::fstream("test.txt"))
+	{
+		file.write("Hello World\n", 12);
+	}
+#endif
+
+#ifdef SNIPPET_31
+	PRINTSNIPPET(SNIPPET_31)
+	if (auto file = std::fstream("test.txt"))
+	{
+		// Unsafe
+		file.write("Hello World\n", 100);
+	}
+#endif
+
+
+#ifdef SNIPPET_32
+	PRINTSNIPPET(SNIPPET_32)
+	if (auto file = std::fstream("test.txt"))
+	{
+		mywrite(file, "Hello World\n", 100);
+	}
+#endif
+
+#ifdef SNIPPET_33
+	PRINTSNIPPET(SNIPPET_33)
+	if (auto file = std::fstream("test.txt"))
+	{
+		const char str1[6] = {'H','e','l','l','o','\n'};
+		const char str2[6] = {'W','o','r','l','d','\n'};
+		mywrite(file, str1, 12);
+	        mywrite(file, str2, 6);	
+	}
+#endif
+
+#ifdef SNIPPET_34
+	PRINTSNIPPET(SNIPPET_34)
+	if (auto file = std::fstream("test.txt"))
+	{
+		std::cout << file.tellp() << '\n';
+		file << "Hello";
+		std::cout << file.tellp() << '\n';
+		file << ' ';
+		std::cout << file.tellp() << '\n';
+		file << "World";
+		std::cout << file.tellp() << '\n';
+		file << '\n';
+		std::cout << file.tellp() << '\n';
+	}
+#endif
+
+#ifdef SNIPPET_35
+	PRINTSNIPPET(SNIPPET_35)
+	if (auto file = std::fstream("test.txt"))
+	{
+		std::cout << file.tellp() << '\n';
+		file << "Hello World\n";
+		std::cout << file.tellp() << '\n';
+		file.seekp(0);
+		file << "The answer is : " << 42 << '\n';
+		std::cout << file.tellp() << '\n';
+	}
+#endif
+
+#ifdef SNIPPET_36
+	PRINTSNIPPET(SNIPPET_36)
+		
+	std::cout << std::boolalpha;
+
+	if (auto file = std::fstream("test.txt"))
+	{
+
+		std::string hello{"Hello"}, world{"World"};
+		file << hello << " " << world << '\n';
+		std::cout << "good: " << file.good() << '\n';
+		std::cout << "fail: " << file.fail() << '\n';
+		std::cout << "bad: " << file.bad() << '\n';
+		std::cout << "eof: " << file.eof() << '\n';
+	}
+
+#endif
+
+#ifdef SNIPPET_37
+	PRINTSNIPPET(SNIPPET_37)
+		
+	std::cout << std::boolalpha;
+
+	if (auto file = std::fstream("test.txt"))
+	{
+		std::string hello{"Hello"}, world{"World"};
+		file << hello << " " << world << '\n';
+		if (!file)
+		{
+			std::cout << "failed\n";
+		}
+	}
+
+#endif
+
+#ifdef SNIPPET_38
+	PRINTSNIPPET(SNIPPET_38)
+		
+	std::cout << std::boolalpha;
+
+	if (auto file = std::fstream("test.txt"))
+	{
+		std::string hello{"Hello"}, world{"World"};
+		file << hello << " " << world << '\n';
+		if (file)
+		{
+			std::cout << "success\n";
+		}
+	}
+
+#endif
+
+#ifdef SNIPPET_39
+	PRINTSNIPPET(SNIPPET_39)
+		
+	std::cout << std::boolalpha;
+
+	if (auto file = std::fstream("test.txt"))
+	{
+		int answer;
+		std::cout << file.good() << '\n';
+		file >> answer;
+		std::cout << file.good() << '\n';
+		file.clear();
+		std::cout << file.good() << '\n';
+	}
+
+#endif
+
 
 
 }
