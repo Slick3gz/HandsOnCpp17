@@ -3,7 +3,7 @@
 /*--------------------------------------------------------------------------*/
 
 /*######################## Active Snippet ##################################*/
-#define SNIPPET_18
+#define SNIPPET_25
 
 #define PRINTSNIPPET(x) std::cout << #x << " Result:\n--------------------\n"; 
 /*##########################################################################*/
@@ -145,6 +145,41 @@ void myread(std::fstream& file, T (&str)[N], std::size_t count)
 
 	file.read(static_cast<char*>(str), count);	
 }
+#endif
+
+#ifdef SNIPPET_19
+#include <iostream>
+#include <fstream>
+#endif
+
+#ifdef SNIPPET_20
+#include <iostream>
+#include <fstream>
+#endif
+
+#ifdef SNIPPET_21
+#include <iostream>
+#include <fstream>
+#endif
+
+#ifdef SNIPPET_22
+#include <iostream>
+#include <fstream>
+#endif
+
+#ifdef SNIPPET_23
+#include <iostream>
+#include <fstream>
+#endif
+
+#ifdef SNIPPET_24
+#include <iostream>
+#include <fstream>
+#endif
+
+#ifdef SNIPPET_25
+#include <iostream>
+#include <fstream>
 #endif
 
 /*-------------------------------------------------------------------------*/
@@ -330,5 +365,88 @@ int main(void)
 	}
 #endif
 
+#ifdef SNIPPET_19
+	PRINTSNIPPET(SNIPPET_19)
+	if (auto file = std::fstream("test.txt"))
+	{
+		std::cout << file.tellg() << '\n';
+		char c = file.get();
+		std::cout << file.tellg() << '\n';
+	}
+#endif
+
+#ifdef SNIPPET_20
+	PRINTSNIPPET(SNIPPET_20)
+	if (auto file = std::fstream("test.txt"))
+	{
+		std::cout << file.tellg() << '\n';
+		char c = file.peek();
+		std::cout << file.tellg() << '\n';
+	}
+#endif
+
+#ifdef SNIPPET_21
+	PRINTSNIPPET(SNIPPET_21)
+	if (auto file = std::fstream("test.txt"))
+	{
+		std::cout << file.tellg() << '\n';
+		file.ignore(1);
+		std::cout << file.tellg() << '\n';
+	}
+#endif
+
+#ifdef SNIPPET_22
+	PRINTSNIPPET(SNIPPET_22)
+	if (auto file = std::fstream("test.txt"))
+	{
+		std::string hello, world;
+
+		file >> hello >> world;
+		std::cout << hello << " " << world << '\n';
+
+		file.seekg(1);
+
+		file >> hello >> world;
+		std::cout << hello << " " << world << '\n';
+	}
+#endif
+
+#ifdef SNIPPET_23
+	PRINTSNIPPET(SNIPPET_23)
+	if (auto file = std::fstream("test.txt"))
+	{
+		char buf[25] = {};
+		file.getline(buf, 25, '\n');
+		std::cout << buf << '\n';
+	}
+#endif
+
+#ifdef SNIPPET_24
+	PRINTSNIPPET(SNIPPET_24)
+	if (auto file = std::fstream("test.txt"))
+	{
+		std::string str;
+		std::getline(file,str);
+		std::cout << str << '\n';
+	}
+#endif
+
+#ifdef SNIPPET_25
+	PRINTSNIPPET(SNIPPET_25)
+	if (auto file = std::fstream("test.txt"))
+	{
+		if(file.sync() == 0)
+		{
+			std::cout << "success\n";
+		}
+		else
+		{
+
+			std::cout << "failure\n";
+		}
+	}
+#endif
+
 
 }
+
