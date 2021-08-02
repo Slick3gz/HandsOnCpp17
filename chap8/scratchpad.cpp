@@ -3,9 +3,11 @@
 /*--------------------------------------------------------------------------*/
 
 /*######################## Active Snippet ##################################*/
-#define SNIPPET_39
+#define SNIPPET_60
 
+// Just a little macro for debugging
 #define PRINTSNIPPET(x) std::cout << #x << " Result:\n--------------------\n"; 
+
 /*##########################################################################*/
 
 /*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
@@ -294,6 +296,118 @@ mywrite(std::fstream &file, const char *str, std::size_t count)
 #ifdef SNIPPET_39
 #include <fstream>
 #include <iostream>
+#endif
+
+/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
+/*@@@@@@@@@@@@@@ File System Utilities @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
+/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
+
+#ifdef SNIPPET_40
+#include <iostream>
+#include <experimental/filesystem>
+#endif
+
+#ifdef SNIPPET_41
+#include <iostream>
+#include <experimental/filesystem>
+#endif
+
+#ifdef SNIPPET_42
+#include <iostream>
+#include <experimental/filesystem>
+#endif
+
+#ifdef SNIPPET_43
+#include <iostream>
+#include <experimental/filesystem>
+#endif
+
+#ifdef SNIPPET_44
+#include <iostream>
+#include <experimental/filesystem>
+#endif
+
+#ifdef SNIPPET_45
+#include <iostream>
+#include <experimental/filesystem>
+#endif
+
+#ifdef SNIPPET_46
+#include <iostream>
+#include <experimental/filesystem>
+#endif
+
+#ifdef SNIPPET_47
+#include <iostream>
+#include <experimental/filesystem>
+#endif
+
+#ifdef SNIPPET_48
+#include <iostream>
+#include <experimental/filesystem>
+#endif
+
+#ifdef SNIPPET_49
+#include <iostream>
+#include <experimental/filesystem>
+#endif
+
+#ifdef SNIPPET_50
+#include <iostream>
+#include <experimental/filesystem>
+#endif
+
+#ifdef SNIPPET_51
+#include <iostream>
+#include <experimental/filesystem>
+#endif
+
+#ifdef SNIPPET_52
+#include <iostream>
+#include <experimental/filesystem>
+#endif
+
+#ifdef SNIPPET_53
+#include <iostream>
+#include <experimental/filesystem>
+#endif
+
+#ifdef SNIPPET_54
+#include <iostream>
+#include <experimental/filesystem>
+#endif
+
+#ifdef SNIPPET_55
+#include <iostream>
+#include <experimental/filesystem>
+#endif
+
+#ifdef SNIPPET_56
+#include <iostream>
+#include <experimental/filesystem>
+#endif
+
+#ifdef SNIPPET_57
+#include <iostream>
+#include <experimental/filesystem>
+#endif
+
+#ifdef SNIPPET_58
+#include <iostream>
+#include <fstream>
+#include <experimental/filesystem>
+#endif
+
+#ifdef SNIPPET_59
+#include <iostream>
+#include <fstream>
+#include <experimental/filesystem>
+#endif
+
+#ifdef SNIPPET_60
+#include <iostream>
+#include <fstream>
+#include <experimental/filesystem>
 #endif
 
 /*-------------------------------------------------------------------------*/
@@ -731,7 +845,341 @@ int main(void)
 
 #endif
 
+#ifdef SNIPPET_40
+	PRINTSNIPPET(SNIPPET_40)
+
+	using namespace std::experimental::filesystem;
+
+	std::cout << std::boolalpha;
+	std::cout << "is_block_file: " << is_block_file("/dev/sda1") << '\n';
+	std::cout << "is_character_file: " << is_character_file("/dev/random") << '\n';
+	std::cout << "is_directory: " << is_directory("/dev") << '\n';
+	std::cout << "is_empty: " <<  is_empty("/dev") << '\n';
+	std::cout << "is_fifo: " << is_fifo("scratchpad.cpp") << '\n';
+	std::cout << "is_socket: " << is_socket("scratchpad.cpp") << '\n';
+	std::cout << "is_symlink: " << is_symlink("scratchpad.cpp") << '\n';
 
 
+#endif
+
+#ifdef SNIPPET_41
+	PRINTSNIPPET(SNIPPET_41)
+
+	using namespace std::experimental::filesystem;
+
+	std::cout << std::boolalpha;
+	std::cout << "Exists (/dev): " << exists("/dev") << '\n';
+	std::cout << "Exists (/dev/random): " << exists("/dev/random") << '\n';
+	std::cout << "Exists (scratchpad.cpp): " << exists("scratchpad.cpp") << '\n';
+
+#endif
+
+#ifdef SNIPPET_42
+	PRINTSNIPPET(SNIPPET_42)
+
+	using namespace std::experimental::filesystem;
+
+	std::cout << "Current Path -> " << current_path() << '\n';
+
+#endif
+
+#ifdef SNIPPET_43
+	PRINTSNIPPET(SNIPPET_43)
+
+	using namespace std::experimental::filesystem;
+
+	auto path = current_path();
+
+	std::cout << "Current absolute path: " << path << '\n';
+	// Following line doesn't work because of implementation
+	//std::cout << "Current relative path: " << relative(path) << '\n';
+
+#endif
+
+#ifdef SNIPPET_44
+	PRINTSNIPPET(SNIPPET_44)
+
+	using namespace std::experimental::filesystem;
+
+	std::cout << canonical(".") << '\n';
+	std::cout << canonical("../chap8") << '\n';
+
+#endif
+
+#ifdef SNIPPET_45
+	PRINTSNIPPET(SNIPPET_45)
+
+	using namespace std::experimental::filesystem;
+
+	std::cout << absolute("../chap8") << '\n';
+
+#endif
+
+#ifdef SNIPPET_46
+	PRINTSNIPPET(SNIPPET_46)
+
+	using namespace std::experimental::filesystem;
+
+	auto path1 = path{"."};
+	auto path2 = path{"../chap8"};
+	auto path3 = path{"../chap8/../chap8"};
+	auto path4 = current_path();
+	auto path5 = current_path() / "../chap8/";
+
+	std::cout << std::boolalpha;
+	std::cout << equivalent(path1, path2) << '\n';
+	std::cout << equivalent(path1, path3) << '\n';
+	std::cout << equivalent(path1, path4) << '\n';
+	std::cout << equivalent(path1, path5) << '\n';
+#endif
+
+#ifdef SNIPPET_47
+	PRINTSNIPPET(SNIPPET_47)
+
+	using namespace std::experimental::filesystem;
+
+	auto path1 = path{"."};
+	auto path2 = path{"../chap8"};
+	auto path3 = path{"../chap8/../chap8"};
+	auto path4 = current_path();
+	auto path5 = current_path() / "../chap8/";
+
+	std::cout << std::boolalpha;
+	std::cout << (path1 == path2) << '\n';
+	std::cout << (path1 == path3) << '\n';
+	std::cout << (path1 == path4) << '\n';
+	std::cout << (path1 == path5) << '\n';
+#endif
+
+#ifdef SNIPPET_48
+	PRINTSNIPPET(SNIPPET_48)
+
+	using namespace std::experimental::filesystem;
+
+	auto path = current_path();
+
+	path /= "scratchpad.cpp";
+
+	std::cout << path << '\n';
+#endif
+
+#ifdef SNIPPET_49
+	PRINTSNIPPET(SNIPPET_49)
+
+	using namespace std::experimental::filesystem;
+
+	auto path = current_path();
+
+	path += "/scratchpad.cpp";
+
+	std::cout << path << '\n';
+#endif
+
+#ifdef SNIPPET_50
+	PRINTSNIPPET(SNIPPET_50)
+
+	using namespace std::experimental::filesystem;
+
+	auto path = current_path();
+
+	path /= "scratchpad.cpp";
+
+	std::cout << path << '\n';
+
+	path.remove_filename();
+
+	std::cout << path << '\n';
+
+#endif
+
+#ifdef SNIPPET_51
+	PRINTSNIPPET(SNIPPET_51)
+
+	using namespace std::experimental::filesystem;
+
+	auto path = current_path();
+
+	path /= "scratchpad.cpp";
+
+	std::cout << path << '\n';
+
+	path.replace_filename("test.cpp");
+
+	std::cout << path << '\n';
+
+#endif
+
+#ifdef SNIPPET_52
+	PRINTSNIPPET(SNIPPET_52)
+
+	using namespace std::experimental::filesystem;
+
+	auto path = current_path();
+
+	path /= "scratchpad.cpp";
+
+	std::cout << path << '\n';
+
+	path.replace_extension("txt");
+
+	std::cout << path << '\n';
+
+#endif
+
+#ifdef SNIPPET_53
+	PRINTSNIPPET(SNIPPET_53)
+
+	using namespace std::experimental::filesystem;
+
+	auto path = current_path();
+
+	path /= "scratchpad.cpp";
+
+	std::cout << path << '\n';
+
+	path.clear();
+
+	std::cout << path << '\n';
+
+#endif
+
+
+#ifdef SNIPPET_54
+	PRINTSNIPPET(SNIPPET_54)
+
+	using namespace std::experimental::filesystem;
+
+	auto path = current_path();
+
+	path /= "scratchpad.cpp";
+
+	std::cout << std::boolalpha;
+
+	std::cout << path.root_name() << '\n';
+	std::cout << path.root_directory() << '\n';
+	std::cout << path.root_path() << '\n';
+	std::cout << path.relative_path() << '\n';
+	std::cout << path.parent_path() << '\n';
+	std::cout << path.filename() << '\n';
+	std::cout << path.stem() << '\n';
+	std::cout << path.extension() << '\n';
+
+#endif
+
+#ifdef SNIPPET_55
+	PRINTSNIPPET(SNIPPET_55)
+
+	using namespace std::experimental::filesystem;
+
+	auto path = current_path();
+
+	path /= "scratchpad.cpp";
+
+	std::cout << std::boolalpha;
+
+	std::cout << path.empty() << '\n';
+	std::cout << path.has_root_path() << '\n';
+	std::cout << path.has_root_name() << '\n';
+	std::cout << path.has_root_directory() << '\n';
+	std::cout << path.has_relative_path() << '\n';
+	std::cout << path.has_parent_path() << '\n';
+	std::cout << path.has_filename() << '\n';
+	std::cout << path.has_stem() << '\n';
+	std::cout << path.has_extension() << '\n';
+	std::cout << path.is_absolute() << '\n';
+	std::cout << path.is_relative() << '\n';
+
+#endif
+
+#ifdef SNIPPET_56
+	PRINTSNIPPET(SNIPPET_56)
+
+	using namespace std::experimental::filesystem;
+
+	auto path = current_path();
+
+	path /= "test";
+
+	std::cout << std::boolalpha;
+
+	std::cout << create_directory(path) << '\n';
+	std::cout << remove(path) << '\n';
+
+#endif
+
+#ifdef SNIPPET_57
+	PRINTSNIPPET(SNIPPET_57)
+
+	using namespace std::experimental::filesystem;
+
+	auto path1 = current_path();
+	auto path2 = current_path();
+
+	path1 /= "test1";
+	path2 /= "test2";
+
+	std::cout << std::boolalpha;
+
+	std::cout << create_directory(path1) << '\n';
+	rename(path1, path2);
+	std::cout << remove(path1) << '\n';
+	std::cout << remove(path2) << '\n';
+
+#endif
+
+#ifdef SNIPPET_58
+	PRINTSNIPPET(SNIPPET_58)
+
+	using namespace std::experimental::filesystem;
+
+	auto path = current_path();
+
+	path /= "test";
+
+	std::cout << std::boolalpha;
+
+	std::cout << create_directory(path) << '\n';
+
+	std::fstream(path / "test1.txt", std::ios::app);
+	std::fstream(path / "test2.txt", std::ios::app);
+	std::fstream(path / "test3.txt", std::ios::app);
+
+	std::cout << remove_all(path) << '\n';
+
+#endif
+
+#ifdef SNIPPET_59
+	PRINTSNIPPET(SNIPPET_59)
+
+	using namespace std::experimental::filesystem;
+
+	auto path = current_path();
+
+	path /= "test";
+
+	std::cout << std::boolalpha;
+
+	std::cout << create_directory(path) << '\n';
+
+	std::fstream(path / "test1.txt", std::ios::app);
+	std::fstream(path / "test2.txt", std::ios::app);
+	std::fstream(path / "test3.txt", std::ios::app);
+
+	for(const auto &p: directory_iterator(path))
+	{
+		std::cout << p << '\n';
+	}
+
+	std::cout << remove_all(path) << '\n';
+
+#endif
+
+#ifdef SNIPPET_60
+	PRINTSNIPPET(SNIPPET_60)
+
+	using namespace std::experimental::filesystem;
+	
+	std::cout << temp_directory_path() << '\n';
+#endif
 }
 
