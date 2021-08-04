@@ -4,8 +4,8 @@
 
 struct myclass
 {
-	int data1 = 0;
-	int data2 = 32644;
+	int data1;
+	int data2;
 };
 
 template<typename T>
@@ -14,11 +14,7 @@ class myallocator
 public:
 	using value_type = T;
 	using pointer = T *;
-	using const_pointer = const T *;
-	using void_pointer = void *;
-	using const_void_pointer = const void *;
 	using size_type = std::size_t;
-	using difference_type = std::ptrdiff_t;
 public:
 	myallocator() = default;
 
@@ -54,12 +50,18 @@ int main(int argc, char **argv)
 	myclass *ptr = myalloc.allocate(1);
 	const myclass *cptr = myalloc.allocate(1);
 
-	ptr->data1 = 0;
-	ptr->data2 = 32644;
 
 	std::cout << (*ptr).data1 << '\n';
 	std::cout << (*cptr).data2 << '\n';
 
 	std::cout << ptr->data1 << '\n';
 	std::cout << cptr->data2 << '\n';
+
+	myallocator<myclass> myalloc1;
+	myallocator<myclass> myalloc2;
+
+	std::cout << std::boolalpha;
+	
+	std::cout << (myalloc1 == myalloc2) << '\n';
+	std::cout << (myalloc1 != myalloc2) << '\n';
 }
