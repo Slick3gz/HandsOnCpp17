@@ -24,6 +24,14 @@ public:
 	template <typename U>
 	myallocator(const myallocator<U> &other) noexcept
 	{ (void) other; }
+	
+	myallocator(const myallocator &other) noexcept
+	{
+		(void) other;
+		std::cout << this << " copy constructor, sizeof(value_type): "
+			<< sizeof(value_type) << '\n';
+	}
+
 
 	myallocator(myallocator &&other) noexcept
 	{
@@ -40,13 +48,6 @@ public:
 			<< sizeof(value_type) << '\n';
 
 		return *this;
-	}
-
-	myallocator(const myallocator &other) noexcept
-	{
-		(void) other;
-		std::cout << this << " copy constructor, sizeof(value_type): "
-			<< sizeof(value_type) << '\n';
 	}
 
 	myallocator &operator=(const myallocator &other) noexcept
