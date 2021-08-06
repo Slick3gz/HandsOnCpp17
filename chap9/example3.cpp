@@ -116,7 +116,7 @@ template <typename T1, typename T2>
 bool operator==(const myallocator<T1> &lhs, const myallocator<T2>
 			&rhs)
 {
-	return lhs.m_object.get() == rhs.m_oject.get();
+	return lhs.m_object.get() == rhs.m_object.get();
 }
 	
 template <typename T1, typename T2>
@@ -136,10 +136,12 @@ int main(int argc, char **argv)
 	
 	mylist1.emplace_back(42);
 	mylist1.emplace_back(42);
+	
+	mylist2.emplace_back(42);
+	mylist2.emplace_back(42);
 
 	std::cout << "---------------------------------------\n";
-	//mylist2 = mylist1;
-	mylist2 = mylist1;
+	mylist2 = std::move(mylist1);
 	std::cout << "---------------------------------------\n";
 
 	
