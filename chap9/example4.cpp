@@ -60,7 +60,7 @@ private:
 		auto total_size =
 			v.size() % m_size == 0 ? v.size() : v.size() - m_size;
 
-		for (auto i = 0; i < total_size; i+= m_size)
+		for (auto i = 0; i < total_size; i += m_size)
 		{
 			m_addrs.push(&v[i]);
 		}
